@@ -1,0 +1,53 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Project Management System</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+</head>
+
+<body>
+ 
+    <div class="container">
+        <h1>Project Management System</h1>
+        <hr>
+        <h2>Save Project</h2>
+   
+        <form action="#" th:action="@{/saveProject}" th:object="${project}" method="POST" autocomplete="off">   
+           
+            <input type="text" th:field="*{projectName}" placeholder="Project Name" class="form-control mb-4 col-4">
+
+            <input type="text" th:field="*{projectDescription}" placeholder="Project Description" class="form-control mb-4 col-4">
+            
+            <label for="namesOfUsers">Choose employees:</label>
+            <select name ="namesOfUsers" th:field="*{peopleAssignedToTheProject}" class="selectpicker" multiple data-live-search="true" >
+                        <option th:each="nameAndSurname : ${listUser}"
+                                th:value="${nameAndSurname.firstName + ' ' + nameAndSurname.lastName}"
+                                th:text="${nameAndSurname.firstName + ' ' + nameAndSurname.lastName}"></option>
+                        </option>
+            </select>
+            <hr>
+            <label for="listOfEmails">Choose emails:</label>
+            <select th:field="*{email}" class="selectpicker" multiple data-live-search="true" name="listOfEmails">
+                        <option th:each="emailUser : ${listUser}"
+                                th:value="${emailUser.email}"
+                                th:text="${emailUser.email}">
+                        </option>
+            </select>
+            <hr>
+            <button type="submit" class="btn btn-info col-2"> Save Project</button>
+            </form>
+            
+        <hr>
+
+        <a th:href="@{/}"> Back to Projects List</a>
+    </div>
+</body>
+
+</html>
